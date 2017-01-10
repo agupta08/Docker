@@ -1,0 +1,4 @@
+env/*
+20news-bydate/*
+.git/*
+.idea/*
