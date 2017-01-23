@@ -1,0 +1,1 @@
+sudo docker run -p $1:$1 --name ThaiML_$2 --rm -v /home/mluser/PycharmProjects/Thai/Docker-2/charsearch/output/$2/vectorizer.pickle:/tmp/vectorizer.pickle -v /home/mluser/PycharmProjects/Thai/Docker-2/charsearch/output/$2/model.pickle:/tmp/model.pickle docker-scikit-api python api.py $1

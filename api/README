@@ -1,0 +1,38 @@
+In order to run the container locally:
+
+- Install docker
+- cd into the api directory and run "make build"
+- Execute the docker container providing the following (which are all generated using the main docker container)
+  * the trained model
+  * the vectorizer
+  * the target names used during the training of the model (i.e. the classification categories)
+
+If the above three input files are not available, rebuild and rerun the original docker container.
+
+docker run -p 8080:8080 --rm -v /home/mluser/PycharmProjects/Thai/Docker-2/charsearch/output/vectorizer.pickle:/tmp/vectorizer.pickle -v /home/mluser/PycharmProjects/Thai/Docker-2/charsearch/output/model.pickle:/tmp/model.pickle docker-scikit-api python api.py
+
+In my case the above command was as follows:
+
+docker run -p 8080:8080 --rm -v /Users/nicktgr15/workspace/docker-scikit/vectorizer.pickle:/tmp/vectorizer.pickle -v /Users/nicktgr15/workspace/docker-scikit/target_names.pickle:/tmp/target_names.pickle -v /Users/nicktgr15/workspace/docker-scikit/model.pickle:/tmp/model.pickle docker-scikit-api python api.py
+
+This will bind the container's 8080 port to the 8080 port on the host machine.
+On linux the example endpoint will be available under http://localhost:8080 while on OS X or Windows
+it will be available under http://virtual-machine-ip:8080
+
+The json endpoint (utilised in the form) is under http://localhost:8080/api/classify and receives data in the following
+way:
+
+content-type: application/json
+method: POST
+data: {"text": "the text you need to classify"}
+
+The response is as follows:
+
+content-type: application/json
+data: {"class": "the identified class (i.e. from the provided target_names"}
+
+
+SU_PG_86: sudo docker run -p 8080:8080 --rm -v /home/mluser/PycharmProjects/Thai/Docker-2/charsearch/output/SU_PG_86/vectorizer.pickle:/tmp/vectorizer.pickle -v /home/mluser/PycharmProjects/Thai/Docker-2/charsearch/output/SU_PG_86/model.pickle:/tmp/model.pickle docker-scikit-api python api.py
+Manufacturer: sudo docker run -p 55003:55003 --name Manufacturer --rm -v /home/mluser/PycharmProjects/Thai/Docker-2/charsearch/output/Manufacturer/vectorizer.pickle:/tmp/vectorizer.pickle -v /home/mluser/PycharmProjects/Thai/Docker-2/charsearch/output/Manufacturer/model.pickle:/tmp/model.pickle docker-scikit-api python api.py
+
+Brand: sudo docker run -p 55001:55001 --name Brand--rm -v /home/mluser/PycharmProjects/Thai/Docker-2/charsearch/output/Brand/vectorizer.pickle:/tmp/vectorizer.pickle -v /home/mluser/PycharmProjects/Thai/Docker-2/charsearch/output/Brand/model.pickle:/tmp/model.pickle docker-scikit-api python api.py
