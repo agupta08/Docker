@@ -1,7 +1,0 @@
-polyglot
-numpy
-scipy
-scikit-learn
-pandas
-tpot
-xlrd
